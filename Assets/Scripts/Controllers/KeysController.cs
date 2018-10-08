@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Config;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ public class KeysController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Si c'est le player qui rentre en contact avec le GameObject
-        if (collision.collider.tag == "Player")
+        if (collision.collider.tag == Tags.Player.ToString())
         {
             //Joue le son de l'audio source
             PlaySound();

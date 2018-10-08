@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Config;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -36,7 +37,7 @@ public class DoorOpen : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Si le tag de l'objet est "Player"
-        if (other.tag == "Player")
+        if (other.tag == Tags.Player.ToString())
         {
             if (!isOpen)
             {
