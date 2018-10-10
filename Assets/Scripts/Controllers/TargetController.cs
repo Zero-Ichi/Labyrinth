@@ -10,14 +10,14 @@ public class TargetController : MonoBehaviour
     [SerializeField]
     private Transform NextTarget;
 
-    [SerializeField]
-    private EnemyController enemy;
+    //[SerializeField]
+    //private EnemyController enemy;
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == Tags.targetedEnemy.ToString())
         {
-            enemy.Target = NextTarget;
+            other.GetComponent<EnemyController>().Target = NextTarget;
         }
     }
 }
