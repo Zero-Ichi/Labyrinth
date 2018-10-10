@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class EnemyController : ControllerBase
 {
     //La target est modifier dans le script "TargetController"
@@ -28,8 +30,12 @@ public class EnemyController : ControllerBase
     {
         if (!isEndGame)
         {
-            //Permet le déplacement entre "this.transform.position" (la position actuelle) et "target.position" (la position d'arrivé)
-            this.transform.position = Vector3.MoveTowards(this.transform.position, target.position, this.walkSpeed * Time.fixedDeltaTime);
+            if (target != null)
+            {
+                //Permet le déplacement entre "this.transform.position" (la position actuelle) et "target.position" (la position d'arrivé)
+                this.transform.position = Vector3.MoveTowards(this.transform.position, target.position, this.walkSpeed * Time.fixedDeltaTime);
+
+            }
         }
     }
 

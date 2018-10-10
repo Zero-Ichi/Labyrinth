@@ -1,9 +1,9 @@
-﻿
-using Assets.Scripts.Config;
+﻿using Assets.Scripts.Config;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class TargetController : MonoBehaviour
 {
 
