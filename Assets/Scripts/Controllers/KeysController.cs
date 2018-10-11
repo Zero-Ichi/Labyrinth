@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Config;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,14 +35,14 @@ public class KeysController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Si c'est le player qui rentre en contact avec le GameObject
-        if (collision.collider.tag == "Player")
+        if (collision.collider.tag == Tags.Player.ToString())
         {
             //Joue le son de l'audio source
             PlaySound();
             //Cache le composant
             Hide();
             //utilisation du parent pour récuperer le tag
-            collision.collider.GetComponent<PlayerController>().KeysTag.Add(parent.tag);
+            collision.collider.GetComponent<PlayerController>().Keys.Add(gameObject);
             //destruction du parents et tous ses enfants avec un delay de deux secondes 
             //pour attendre la fin de toutes les autre interaction (Son, animation ...)
             Destroy(parent, 1f);

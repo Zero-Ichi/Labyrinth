@@ -7,6 +7,8 @@ TagManager:
   - FirstKey
   - SecondKey
   - Manager
+  - targetedEnemy
+  - ThirdKey
   layers:
   - Default
   - TransparentFX
