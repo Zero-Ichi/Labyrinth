@@ -11,8 +11,9 @@ public class DoorOpen : MonoBehaviour
     [SerializeField]
     private GameObject ExitPoint;
     [SerializeField]
-    List<string> keyTagForOpen = new List<string>();
+    List<GameObject> keysForOpen;
 
+    private PlayerController player;
     private AudioController audioController;
     private bool isOpen;
 
@@ -42,24 +43,20 @@ public class DoorOpen : MonoBehaviour
             if (!isOpen)
             {
                 //Si il y a des clés a récuperer
-                if (keyTagForOpen.Count > 1)
+                if (keysForOpen.Count > 1)
                 {
                     //Récupere le script du player
-                    PlayerController player = other.GetComponent<PlayerController>();
-                    bool open = false;
-                    //Cherche dans la liste 
-                    foreach (string item in keyTagForOpen)
+                    player = other.GetComponent<PlayerController>();
+                    int count = 0;
+                    //Cherche dans la liste
+                    foreach (GameObject item in keysForOpen)
                     {
-                        if (!string.IsNullOrEmpty(player.KeysTag.FirstOrDefault(x => x == item)))
+                        if (item == null)
                         {
-                            open = true;
-                        }
-                        else
-                        {
-                            open = false;
+                            count++;
                         }
                     }
-                    if (open)
+                    if (keysForOpen.Count == count)
                     {
                         this.OpenTheDoor();
                     }

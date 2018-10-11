@@ -42,7 +42,7 @@ public class KeysController : MonoBehaviour
             //Cache le composant
             Hide();
             //utilisation du parent pour récuperer le tag
-            collision.collider.GetComponent<PlayerController>().KeysTag.Add(parent.tag);
+            collision.collider.GetComponent<PlayerController>().Keys.Add(gameObject);
             //destruction du parents et tous ses enfants avec un delay de deux secondes 
             //pour attendre la fin de toutes les autre interaction (Son, animation ...)
             Destroy(parent, 1f);

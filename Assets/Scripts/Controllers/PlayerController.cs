@@ -18,14 +18,14 @@ public class PlayerController : ControllerBase
     private float rotY = 0.0f; // rotation around the up/y axis
     private float rotX = 0.0f; // rotation around the right/x axis
 
-    public List<string> KeysTag { get; set; }
+    public List<GameObject> Keys { get; set; }
 
 
     // Awake est appelé quand l'instance de script est chargée
     private void Awake()
     {
         endGame = false;
-        KeysTag = new List<string>();
+        Keys = new List<GameObject>();
         Cursor.visible = false;
     }
 
@@ -45,7 +45,7 @@ public class PlayerController : ControllerBase
     //Update is called once every 0.02 secondes
     void FixedUpdate()
     {
-        #region move your body
+            #region move your body
         if (Input.GetKey(KeyCode.LeftShift))
             curentSpeed = runSpeed;
         else
@@ -69,8 +69,9 @@ public class PlayerController : ControllerBase
 
             Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
             transform.rotation = localRotation;
-            #endregion Move your head
+           
         }
+        #endregion Move your head
         //this.MoveInput();
     }
 
