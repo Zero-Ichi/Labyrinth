@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Assets.Scripts.Config;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : ControllerBase
@@ -45,7 +47,7 @@ public class PlayerController : ControllerBase
     //Update is called once every 0.02 secondes
     void FixedUpdate()
     {
-            #region move your body
+        #region move your body
         if (Input.GetKey(KeyCode.LeftShift))
             curentSpeed = runSpeed;
         else
@@ -69,7 +71,7 @@ public class PlayerController : ControllerBase
 
             Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
             transform.rotation = localRotation;
-           
+
         }
         #endregion Move your head
         //this.MoveInput();
@@ -79,7 +81,7 @@ public class PlayerController : ControllerBase
     {
         endGame = true;
         Cursor.visible = true;
-        
+
         EndGameUi.SetActive(true);
         TimerController timer = EndGameUi.GetComponentInParent<TimerController>();
         string txt;
@@ -91,6 +93,8 @@ public class PlayerController : ControllerBase
         {
             txt = "you lose in " + timer.GetFormatedTime();
         }
+        PlayerPrefs.SetString(PlayerPrefsKeys.timeLvl.ToString() + SceneManager.GetActiveScene().buildIndex.ToString(), timer.GetFormatedTime());
+        PlayerPrefs.SetInt(PlayerPrefsKeys.continueLvl.ToString(), SceneManager.GetActiveScene().buildIndex + 1);
         EndGameUi.transform.Find("TxtEndMessage").GetComponent<Text>().text = txt;
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Config;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,6 +46,14 @@ public class LevelController : MonoBehaviour
     public void StartNext()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void LoadLevelContinuePlayerPrefs()
+    {
+        if (PlayerPrefs.HasKey(PlayerPrefsKeys.continueLvl.ToString()))
+        {
+            SceneManager.LoadScene(PlayerPrefs.GetInt(PlayerPrefsKeys.continueLvl.ToString()));
+        }
     }
 
 
