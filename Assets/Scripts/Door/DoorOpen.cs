@@ -13,7 +13,7 @@ public class DoorOpen : MonoBehaviour
     [SerializeField]
     List<GameObject> keysForOpen;
 
-    private PlayerController player;
+
     private AudioController audioController;
     private bool isOpen;
 
@@ -45,8 +45,6 @@ public class DoorOpen : MonoBehaviour
                 //Si il y a des clés a récuperer
                 if (keysForOpen.Count > 1)
                 {
-                    //Récupere le script du player
-                    player = other.GetComponent<PlayerController>();
                     int count = 0;
                     //Cherche dans la liste
                     foreach (GameObject item in keysForOpen)

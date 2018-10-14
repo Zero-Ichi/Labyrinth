@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorNextLvl : LevelController {
-
-    PlayerController player;
     private void Awake()
     {
         

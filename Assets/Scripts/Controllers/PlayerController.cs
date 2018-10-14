@@ -14,6 +14,8 @@ public class PlayerController : ControllerBase
     private float clampAngle = 80.0f;
     [SerializeField]
     private GameObject EndGameUi;
+    [SerializeField]
+    private GameObject PauseMenu;
 
     public bool endGame { get; private set; }
 
@@ -29,6 +31,7 @@ public class PlayerController : ControllerBase
         endGame = false;
         Keys = new List<GameObject>();
         Cursor.visible = false;
+        Time.timeScale = 1;
     }
 
 
@@ -47,14 +50,15 @@ public class PlayerController : ControllerBase
     //Update is called once every 0.02 secondes
     void FixedUpdate()
     {
-        #region move your body
-        if (Input.GetKey(KeyCode.LeftShift))
-            curentSpeed = runSpeed;
-        else
-            curentSpeed = walkSpeed;
+
 
         if (!endGame)
         {
+            #region move your body
+            if (Input.GetKey(KeyCode.LeftShift))
+                curentSpeed = runSpeed;
+            else
+                curentSpeed = walkSpeed;
 
             transform.Translate(Vector3.forward * curentSpeed * Time.fixedDeltaTime * Input.GetAxis("Vertical"));
             transform.Translate(Vector3.right * curentSpeed * Time.fixedDeltaTime * Input.GetAxis("Horizontal"));
@@ -71,12 +75,40 @@ public class PlayerController : ControllerBase
 
             Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
             transform.rotation = localRotation;
-
+            #endregion Move your head
         }
-        #endregion Move your head
+
+        //Si on appuie sur échappe on met en pause ou on coupe la pause
+        //BUG : Une fois en pause le TimeScale étant à 0 l'appui suréchappe pour quitter le menu n'est pas détecté.
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (Time.timeScale == 1)
+            {
+                Cursor.visible = true;
+                Time.timeScale = 0;
+                PauseMenu.SetActive(true);
+            }
+            else
+            {
+                StopPause();
+            }
+        }
+
         //this.MoveInput();
     }
-
+    /// <summary>
+    /// End pause
+    /// </summary>
+    public void StopPause()
+    {
+        Cursor.visible = false;
+        Time.timeScale = 1;
+        PauseMenu.SetActive(false);
+    }
+    /// <summary>
+    /// End game
+    /// </summary>
+    /// <param name="isVictory"></param>
     public void EndGame(bool isVictory)
     {
         endGame = true;
@@ -85,6 +117,7 @@ public class PlayerController : ControllerBase
         EndGameUi.SetActive(true);
         TimerController timer = EndGameUi.GetComponentInParent<TimerController>();
         string txt;
+        //Créer le message de fin
         if (isVictory)
         {
             txt = "you win in " + timer.GetFormatedTime();
@@ -93,9 +126,25 @@ public class PlayerController : ControllerBase
         {
             txt = "you lose in " + timer.GetFormatedTime();
         }
-        PlayerPrefs.SetString(PlayerPrefsKeys.timeLvl.ToString() + SceneManager.GetActiveScene().buildIndex.ToString(), timer.GetFormatedTime());
-        PlayerPrefs.SetInt(PlayerPrefsKeys.continueLvl.ToString(), SceneManager.GetActiveScene().buildIndex + 1);
         EndGameUi.transform.Find("TxtEndMessage").GetComponent<Text>().text = txt;
+
+
+        //Enregistre dans le PlayerPrefs des valeurs : le temps pour le niveau actuel
+        PlayerPrefs.SetString(PlayerPrefsKeys.timeLvl.ToString() + SceneManager.GetActiveScene().buildIndex.ToString(), timer.GetFormatedTime());
+
+        //Enregistre dans le PlayerPrefs le niveau auquel il faut reprendre dans le "continue" du main menu
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        // Vérifie qu'il n'y est pas d'out of range
+        if (sceneIndex + 1 >= SceneManager.sceneCountInBuildSettings)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.continueLvl.ToString(), sceneIndex);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.continueLvl.ToString(), sceneIndex + 1);
+
+        }
+
 
     }
 

@@ -45,9 +45,20 @@ public class LevelController : MonoBehaviour
     /// </summary>
     public void StartNext()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            //load main menu
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
     }
-
+    /// <summary>
+    /// start whith pref player
+    /// </summary>
     public void LoadLevelContinuePlayerPrefs()
     {
         if (PlayerPrefs.HasKey(PlayerPrefsKeys.continueLvl.ToString()))
@@ -55,6 +66,12 @@ public class LevelController : MonoBehaviour
             SceneManager.LoadScene(PlayerPrefs.GetInt(PlayerPrefsKeys.continueLvl.ToString()));
         }
     }
-
+    /// <summary>
+    /// end pause
+    /// </summary>
+    public void QuitPause()
+    {
+        GameObject.Find("Player").GetComponent<PlayerController>().StopPause();
+    }
 
 }

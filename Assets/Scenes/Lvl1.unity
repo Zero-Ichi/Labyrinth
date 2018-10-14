@@ -309,6 +309,11 @@ Prefab:
       propertyPath: EndGameUi
       value: 
       objectReference: {fileID: 157736102}
+    - target: {fileID: 114817213426617302, guid: 674c9f28647b26842ac6af2d5768fc92,
+        type: 2}
+      propertyPath: PauseMenu
+      value: 
+      objectReference: {fileID: 1153740535}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 674c9f28647b26842ac6af2d5768fc92, type: 2}
   m_IsPrefabParent: 0
@@ -473,6 +478,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76fc77baeaa12c24e9e071cce9edc987, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1153740535 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1197480948174502, guid: a34ea005aa87b154d9ed2c08dde46e09,
+    type: 2}
+  m_PrefabInternal: {fileID: 112363387}
 --- !u!1001 &1167696955
 Prefab:
   m_ObjectHideFlags: 0

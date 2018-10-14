@@ -12,8 +12,11 @@ public class DetectorController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        //Si le gameObject(other.gameObject) qui est rentré dans
+        //collider est la target
         if (other.gameObject == target)
         {
+            //Alors on revoit l'ennemi vers la target
             parentEnemy.Target = target.transform;
         }
     }

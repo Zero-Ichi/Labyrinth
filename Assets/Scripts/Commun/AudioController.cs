@@ -21,9 +21,15 @@ public class AudioController : MonoBehaviour
 
     public void PlaySound(string soundName)
     {
+        //FindIndex(x => x == soundName) est du linq
+        //https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/concepts/linq/introduction-to-linq-queries
         int index = names.FindIndex(x => x == soundName);
+
+        // Vérifie que l'index trouvé n'est pas supérieur au nombre d'élément dans laliste
+        // et qu'il n'est pas négatif
         if (index < sounds.Count && index >= 0)
         {
+            //Joue le son
             audioSource.PlayOneShot(sounds[index]);
         }
     }
