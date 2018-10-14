@@ -29,9 +29,8 @@ public class KeysController : MonoBehaviour
 
     }
 
-    // OnCollisionEnter est appelé quand ce collider/rigidbody commence à toucher un autre rigidbody/collider
-    //Ne pas utiliser si on n'a pas besoin d'infos (Point d'impact ...) sur la collision (la c'pour l'exemple)
-    //Car plus gourment en ressources
+    // OnCollisionEnter est appelé quand ce collider/rigidbody commence à toucher un autre rigidbody/collider.
+    //Ne pas utiliser si on n'a pas besoin d'infos(Point d'impact ...) sur la collision car plus consomateur en ressources
     private void OnCollisionEnter(Collision collision)
     {
         //Si c'est le player qui rentre en contact avec le GameObject
@@ -41,13 +40,13 @@ public class KeysController : MonoBehaviour
             PlaySound();
             //Cache le composant
             Hide();
-            //utilisation du parent pour récuperer le tag
+            //Utilisation du parent pour récuperer le tag
             collision.collider.GetComponent<PlayerController>().Keys.Add(gameObject);
-            //destruction du parents et tous ses enfants avec un delay de deux secondes 
-            //pour attendre la fin de toutes les autre interaction (Son, animation ...)
+            //destruction du parent et tous ses enfants avec un delay de deux secondes
+            // pour attendre la fin de tous les autres interaction (son, animation ...)
             Destroy(parent, 1f);
             //Plus aucune interaction possible sous le destroy 
-            //vue que c'est détruit (Impossible de lance le son par exemple)
+            //vu que c'est détruit (Impossible de lance le son par exemple)
 
 
         }

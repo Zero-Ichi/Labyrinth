@@ -6,11 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
-    private PlayerController player;
-    private void Awake()
-    {
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
-    }
     /// <summary>
     /// Load level with id
     /// </summary>
@@ -50,7 +45,16 @@ public class LevelController : MonoBehaviour
     /// </summary>
     public void StartNext()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            //load main menu
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
     }
     /// <summary>
     /// start whith pref player
@@ -62,10 +66,12 @@ public class LevelController : MonoBehaviour
             SceneManager.LoadScene(PlayerPrefs.GetInt(PlayerPrefsKeys.continueLvl.ToString()));
         }
     }
-
+    /// <summary>
+    /// end pause
+    /// </summary>
     public void QuitPause()
     {
-        player.StopPause();
+        GameObject.Find("Player").GetComponent<PlayerController>().StopPause();
     }
 
 }

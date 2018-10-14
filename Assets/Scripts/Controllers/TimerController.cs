@@ -24,9 +24,14 @@ public class TimerController : MonoBehaviour
     {
         
         txtTimer.text = BuildTimerText();
+
+        //https://docs.unity3d.com/Manual/Coroutines.html
         StartCoroutine(IncrementTime());
     }
-
+    /// <summary>
+    /// recursive fonction for timer 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator IncrementTime()
     {
         if (!player.endGame)

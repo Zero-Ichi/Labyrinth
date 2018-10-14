@@ -41,9 +41,12 @@ public class EnemyController : ControllerBase
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Si l'ennemi rentre en contact avec un gameobject qui a le tag player
         if (collision.collider.tag == Tags.Player.ToString())
         {
+            //On récupere le player controller
             player = collision.collider.GetComponent<PlayerController>();
+            //On met fin au jeu
             player.EndGame(false);
             isEndGame = true;
             this.GetComponent<Rigidbody>().isKinematic = true;
