@@ -14,6 +14,8 @@ public class PlayerController : ControllerBase
     private float clampAngle = 80.0f;
     [SerializeField]
     private GameObject EndGameUi;
+    [SerializeField]
+    private GameObject PauseMenu;
 
     public bool endGame { get; private set; }
 
@@ -74,7 +76,28 @@ public class PlayerController : ControllerBase
 
         }
         #endregion Move your head
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (Time.timeScale == 1)
+            {
+                Cursor.visible = true;
+                Time.timeScale = 0;
+                PauseMenu.SetActive(true);
+            }
+            else
+            {
+                StopPause();
+            }
+        }
+
         //this.MoveInput();
+    }
+    public void StopPause()
+    {
+        Cursor.visible = false;
+        Time.timeScale = 1;
+        PauseMenu.SetActive(false);
     }
 
     public void EndGame(bool isVictory)
